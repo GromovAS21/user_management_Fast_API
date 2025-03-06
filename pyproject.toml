@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "fastapi-test"
+version = "0.1.0"
+description = ""
+authors = ["Anton Gromov <seed14112@yaandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+aiohttp = "^3.11.12"
+fastapi = "^0.115.11"
+uvicorn = "^0.34.0"
+pydantic = "^2.10.6"
+email-validator = "^2.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
