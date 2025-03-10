@@ -1,12 +1,17 @@
 from typing import List
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 
 from schemas.user import User, UserCreate
+from services.jwt_token_services import verify_jwt_token
 from services.user_services import fetch_users, fetch_user, create_new_user, delete_user
 
 router = APIRouter()
 
+@router.get("/")
+async def read_root():
+    """Запрос к корню проекта"""
+    return {"massage": ", User Management World!"}
 
 @router.get("/users/", response_model=List[User])
 async def get_users():
@@ -39,3 +44,8 @@ async def delete_user_route(user_id: int):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return {"message": "User deleted"}
+
+@router.get("/protected")
+async def protected_route(user_id: int = Depends(verify_jwt_token)):
+    """Закрытый маршрут"""
+    return {"message": f"Hello, user {user_id}"}
